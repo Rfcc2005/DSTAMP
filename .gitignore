@@ -1,0 +1,19 @@
+# dependências (o projeto não usa nenhuma, mas fica registrado)
+node_modules/
+
+# dados de runtime — NUNCA versionar pedidos/comprovantes/artes reais
+data/db.json
+data/uploads/
+backups/
+
+# ambiente e logs
+.env
+.env.*
+*.log
+npm-debug.log*
+
+# sistema operacional / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,26 @@
+services:
+  dstamp:
+    build: .
+    image: dstamp:latest
+    container_name: dstamp
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DSTAMP_DATA: /data
+      DSTAMP_NO_DEMO: "1"
+      DSTAMP_ADMIN_EMAIL: ${DSTAMP_ADMIN_EMAIL:-admin@dstamp.com.br}
+      DSTAMP_ADMIN_PASSWORD: ${DSTAMP_ADMIN_PASSWORD:-}
+    volumes:
+      - dstamp-data:/data
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/api/health"]
+      interval: 60s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+
+volumes:
+  dstamp-data:

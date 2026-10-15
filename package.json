@@ -1,0 +1,23 @@
+{
+  "name": "dstamp-mvp",
+  "version": "1.1.0",
+  "description": "Site de pedidos (varejo) + painel operacional da D-Stamp — estampa total, localizada via WhatsApp, brindes e revenda",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "DSTAMP_DEV=1 node server.js",
+    "reset": "node -e \"require('fs').rmSync('data/db.json',{force:true})\" && node server.js",
+    "test": "node test/price-test.js",
+    "test:ui": "node test/dom-test.js",
+    "backup": "node tools/backup.js",
+    "restore": "node tools/backup.js restore"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "jsdom": "^29.1.1"
+  }
+}

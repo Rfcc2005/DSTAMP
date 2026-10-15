@@ -1,0 +1,29 @@
+# Render Blueprint — conecta o repositório e o Render cria o serviço sozinho
+# https://render.com/docs/blueprint-spec
+#
+# ATENÇÃO (plano free): o disco é EFÊMERO — db.json e uploads se perdem a cada
+# deploy/restart. Rode `npm run backup` antes de publicar e `npm run restore` depois,
+# ou use o plano Starter (US$7/mês) com disco persistente em /var/data.
+services:
+  - type: web
+    name: dstamp
+    runtime: node
+    plan: free
+    buildCommand: npm install --omit=dev
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      # banco limpo, sem os 8 pedidos e usuários de demonstração
+      - key: DSTAMP_NO_DEMO
+        value: "1"
+      - key: DSTAMP_ADMIN_EMAIL
+        sync: false          # você informa no painel do Render
+      - key: DSTAMP_ADMIN_PASSWORD
+        sync: false          # você informa no painel do Render
+      # NUNCA defina DSTAMP_DEV em produção (libera a rota de reset).
+      # Plano pago com disco montado:
+      # - key: DSTAMP_DATA
+      #   value: /var/data
